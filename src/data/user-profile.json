@@ -1,0 +1,69 @@
+{
+    "profile": {
+        "name": "Al-Fareed",
+        "overview": "SDET Intern - 7 months of experience in TestVagrant",
+        "keypoints": [
+            "Adept in Java,  JavaScript, and Python programming languages.",
+            "Familiarity with Java and JavaScript-based automation toolsets and frameworks."
+        ],
+        "url": "al-fareed.netlify.app"
+    },
+    "skills": {
+        "Programming Language": [
+            "Java",
+            "Python",
+            "Javascript"
+        ],
+        "Automation Tools": [
+            "Playwright",
+            "Selenium",
+            "Appium",
+            "Rest Assured"
+        ],
+        "Test Design": [
+            "TestNG"
+        ],
+        "Source Control": [
+            "GitHub",
+            "GitLab"
+        ],
+        "Build Tools": [
+            "Maven', 'Gradle"
+        ]
+    },
+    "codeReference": {
+        "Web Automation using Selenium - Magento App": "https://github.com/Al-Fareed-TV/Magento-web-Automation",
+        "Playwright Web Automation - ul-web-playground": "https://github.com/Al-Fareed-TV/ul-shopping-cart-automation",
+        "API Automation - Contact List API": "https://github.com/Al-Fareed-TV/contact-list-api-automation",
+        "Mobile Automation - Smule App": "https://github.com/Al-Fareed-TV/Smule-Mob-Automation",
+        "Unit Testing - Airline Reservation System": "https://gitlab.com/activity41/airline-reservation-system-testing.git"
+    },
+    "Training": [
+        {
+            "company": "TestVagrant Technologies",
+            "keypoints": [
+                "Proficient in Java OOPs principles, Gradle, and Maven build tools.",
+                "Skilled in TestNG for robustness.",
+                "Expert in automation tools: Playwright,  Appium, Selenium WebDriver, RestAssured.",
+                "Strong understanding of POM, and Singleton design patterns, contributing to efficient and maintainable test automation frameworks.",
+                "Experienced in Git, version control, branching, and merging.",
+                "Well-versed in creating efficient CI/CD pipelines for seamless software development."
+            ]
+        }
+    ],
+    "projects": {
+        "InhouseProject": {
+            "GitHub Repo Fetcher (Python)": [
+                "Published python package to pypi to retrieve content from GitHub repositories using HTTPS link, branch names, and user access tokens."
+            ],
+            "Automatic Test Case Generator": [
+                "Generates test cases using the url of the web page with options to choose tools and language."
+            ]
+        },
+        "ClientProject": {
+            "QA Assistant": [
+                "Analyzes the code and gives feedback to the user to refactor and improve code quality by following coding standards."
+            ]
+        }
+    }
+}
