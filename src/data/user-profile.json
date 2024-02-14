@@ -52,15 +52,8 @@
                 "Automatic Test Case Generator": [
                     "Generates test cases using the url of the web page with options to choose tools and language."
                 ]
-            },
-            "Client Project": {
-                "QA Assistant": [
-                    "Analyzes the code and gives feedback to the user to refactor and improve code quality by following coding standards."
-                ],
-            "QA": [
-                    "Analyzes the code and gives feedback to the user to refactor and improve code quality by following coding standards."
-                ]
             }
+            
         }
     }
 ]
