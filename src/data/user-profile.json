@@ -44,16 +44,20 @@
             }
         ],
         "projects": {
-            "InhouseProject": {
+            "InHouse Project": {
                 "GitHub Repo Fetcher (Python)": [
-                    "Published python package to pypi to retrieve content from GitHub repositories using HTTPS link, branch names, and user access tokens."
+                    "Published python package to pypi to retrieve content from GitHub repositories using HTTPS link, branch names, and user access tokens.",
+                    "Added Intelligence to list the branches if user doesn't provide."
                 ],
                 "Automatic Test Case Generator": [
                     "Generates test cases using the url of the web page with options to choose tools and language."
                 ]
             },
-            "ClientProject": {
+            "Client Project": {
                 "QA Assistant": [
+                    "Analyzes the code and gives feedback to the user to refactor and improve code quality by following coding standards."
+                ],
+            "QA": [
                     "Analyzes the code and gives feedback to the user to refactor and improve code quality by following coding standards."
                 ]
             }

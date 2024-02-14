@@ -55,7 +55,26 @@ const styles = StyleSheet.create({
   lists: {
     marginHorizontal: 15,
   },
-  skillsSection: {},
+  type: {
+    fontWeight:"bold"
+  },
+  projectSection:{
+    marginBottom:4
+  },
+  footer:{
+    marginTop:"auto",
+    marginBottom:2,
+    display:"flex",
+    flexDirection:"column",
+    fontWeight:'bold',
+    justifyContent:"center",
+    textAlign:"center"
+  },
+  line:{
+    backgroundColor:"rgb(106, 180, 207)",
+    border:"none",
+    height:3
+  }
 });
 const getProfileData = (data) => {
   return data[0].profile;
@@ -77,16 +96,22 @@ const getTrainingInfo = () =>{
   return jsonData[0].training;
 }
 const empTrainingInfo = getTrainingInfo()[0];
+
+const getProjects = () =>{
+  return jsonData[0].projects;
+}
+const projectsData = getProjects()
+console.log(getProjects().InhouseProject);
 const MyPDF = () => (
   <Document>
     <Page size="A4" style={styles.page} className="page">
-      <View className="header" style={styles.header}>
+      <View className="header" style={styles.header} fixed>
         <Image src={logo} alt="TV Logo" style={styles.logo} />
         <Text style={styles.description}>
           {" "}
           Confidential - TestVagrant Technologies Private Limited
         </Text>
-      </View>
+        </View>
       <View className="profile-section" style={styles.profileSection}>
         <Text className="user-name" style={styles.userName}>
           {profileData.Name}
@@ -174,10 +199,29 @@ const MyPDF = () => (
       })}
       </ul>
       </View>
-      <View>
-      <Text>Contributions</Text>
-      
-      </View>
+      <View style={styles.projectSection}>
+          <Text style={styles.subHeading}>Projects:</Text>
+          {Object.entries(projectsData).map(([projectType, projects], index) => (
+            <View key={index}> <br/>
+              <Text style={styles.type}>{projectType}:</Text><br/>
+              {Object.entries(projects).map(([projectName, projectDetails], idx) => (
+                <View key={idx}>
+                  <Text style={{fontWeight:'bold'}}>{"\u2022 \t"}{projectName}:</Text> <br/>
+                  {projectDetails.map((detail, idx) => (
+                    <Text key={idx}>- {detail}<br/></Text>
+                  ))}
+                </View>
+              ))}
+            </View>
+          ))}
+        </View>
+        <View className="footer" style={styles.footer} fixed>
+            <Text>CIN:U72200KA2014PTC075831</Text>
+            <View style={styles.line}></View>
+            <Text>TESTVAGRANT TECHNOLOGIES PRIVATE LIMITED</Text>
+            <Text>#284, Hothur Square, 1st Floor, 100 Feet Rd, Bengaluru, Karnataka 560008 | <Text>info@testvagrant.com</Text>  </Text>
+
+        </View>
     </Page>
   </Document>
 );
