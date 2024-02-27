@@ -3,9 +3,9 @@ import "./LoadingPage.css"
 const LoadingPage = () => {
   return (
     <div className="loading-container">
-      <div class="circle1">
-        <div class="circle2">
-          <div class="circle3"></div>
+      <div className="circle1">
+        <div className="circle2">
+          <div className="circle3"></div>
         </div>
       </div>
     </div>

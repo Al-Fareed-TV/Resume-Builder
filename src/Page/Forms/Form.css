@@ -1,0 +1,25 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(211, 211, 211, 0.577);
+    padding: .5rem;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+.inner-container{
+    display: flex;
+    justify-content: space-between;
+}
+input , textarea { 
+    margin: .5rem ;
+    height: 1.5rem;
+    border-radius: 5px;
+    border: 1px solid grey;
+    padding: .5rem ;
+}
+
+.inner-container :nth-child(1){
+    width: 70%;
+}
+
+
