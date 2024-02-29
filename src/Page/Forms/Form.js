@@ -30,24 +30,20 @@ const ProfileForm = ({ onInputChange }) => {
       <input
         value={title}
         placeholder="Name"
-        onChange={handleTitleChange}
       />
       <div className="inner-container">
         <input
           value={org}
           placeholder="Organization"
-          onChange={handleOrgChange}
         />
         <input
           value={date}
           placeholder="Jun - 2022"
-          onChange={handleDateChange}
         />
       </div>
       <input
         value={desc}
         placeholder="Description"
-        onChange={handleDescChange}
       />
     </div>
   );

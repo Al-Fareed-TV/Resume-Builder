@@ -1,17 +1,19 @@
 // FormPage.js
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { ProfileForm, CustomForm } from "./Form";
 import "./FormPage.css";
+import { handleAddCustomForm,handleListChange,handleRemoveCustomForm } from "./FormActions/Actions";
+// import { addData } from "../../app/profileSlice";
 
 const FormPage = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     profile: { title: "", org: "", date: "", desc: "" },
     customForms: [{ title: "", desc: "", skills: [] }], 
   });
-
+  
   const handleProfileInputChange = (name, value) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -22,12 +24,7 @@ const FormPage = () => {
     }));
   };
 
-  const handleAddCustomForm = () => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      customForms: [...prevFormData.customForms, { title: "", desc: "", skills: [] }],
-    }));
-  };
+  
 
   const handleCustomFormInputChange = (index, name, value) => {
     setFormData((prevFormData) => {
@@ -43,35 +40,28 @@ const FormPage = () => {
     });
   };
 
-  const handleListChange = (index, value) => {
-    setFormData((prevFormData) => {
-      const customForms = [...prevFormData.customForms];
-      customForms[index].skills = value.split("\n").map((skill) => skill.trim());
-      return {
-        ...prevFormData,
-        customForms,
-      };
-    });
-  };
-
-  const handleRemoveCustomForm = () => {
-    if (formData.customForms.length > 1) {
-      setFormData((prevFormData) => {
-        const customForms = [...prevFormData.customForms];
-        customForms.pop(); 
-        return {
-          ...prevFormData,
-          customForms,
-        };
-      });
-    } else {
-      alert("At least one custom form is required.");
-    }
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch((formData)); 
+    const profileData = {
+      title: formData.profile.title,
+      org: formData.profile.org,
+      date: formData.profile.date,
+      desc: formData.profile.desc,
+    };
+
+    const customFormsData = formData.customForms.map((form) => ({
+      title: form.title,
+      desc: form.desc,
+      skills: form.skills,
+    }));
+
+    const formDataJson = {
+      profile: profileData,
+      customForms: customFormsData,
+    };
+    console.log("Data Recieved = ",formDataJson);
+    // dispatch(addData(formDataJson)); 
   };
 
   useEffect(() => {
@@ -79,6 +69,8 @@ const FormPage = () => {
       handleAddCustomForm();
     }
   }); 
+
+  
 
   return (
     <form onSubmit={handleSubmit}>
@@ -89,20 +81,19 @@ const FormPage = () => {
           index={index}
           form={form}
           onInputChange={handleCustomFormInputChange}
-          onListChange={handleListChange}
+          onListChange={(value) => handleListChange(index, value, setFormData)}
         />
       ))}
       <div className="form-button-container">
       <div className="button-container">
-      <button type="button" onClick={handleAddCustomForm}>
+      <button type="button" onClick={() => handleAddCustomForm({ setFormData })}>
         Add Custom Form
       </button>
-      <button type="button" onClick={handleRemoveCustomForm}>
+      <button type="button" onClick={() => handleRemoveCustomForm(formData, setFormData)}>
         Remove Custom Form
       </button></div>
       <button type="submit">Submit</button>
       </div>
-
     </form>
   );
 };
