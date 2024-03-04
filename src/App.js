@@ -1,28 +1,31 @@
 import React, { useState, useEffect } from "react";
-// import DownloadPDF from "./Page/DownloadPDF";
-// import MyPDF from "./Page/MyPDF";
+import DownloadPDF from "./Page/DownloadPDF";
+import MyPDF from "./Page/MyPDF";
 import LoadingPage from "./Page/LoadingPage";
-import FormPage from "./Page/Forms/FormPage";
+import FileUpload from "./Page/Forms/FileUpload";
+// import FormPage from "./Page/Forms/FormPage";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
+  const [isUploaded, setIsUploaded] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <div className="App">
-      {loading && <LoadingPage />}
+    {loading && <LoadingPage />}
+    {/**
       {!loading && <FormPage />}
-      {/**
-      {!loading && <MyPDF />}
-      {!loading && <DownloadPDF />}
-     */}
+    */}
+      {!loading && !isUploaded && <FileUpload setIsUploaded={setIsUploaded} />}
+      {!loading && isUploaded &&  <MyPDF />}
+      {!loading && isUploaded && <DownloadPDF />}
     </div>
   );
 };

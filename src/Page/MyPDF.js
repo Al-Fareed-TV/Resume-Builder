@@ -8,7 +8,6 @@ import {
   StyleSheet,
   Image,
 } from "@react-pdf/renderer";
-import jsonData from "../data/user-profile.json";
 import logo from "../img/tvlogo.png";
 
 const styles = StyleSheet.create({
@@ -77,6 +76,8 @@ const styles = StyleSheet.create({
     marginVertical:3
   },
 });
+let jsonData = JSON.parse(localStorage.getItem('userProfile'))
+
 const getProfileData = (data) => {
   return data[0].profile;
 };
@@ -102,7 +103,6 @@ const getProjects = () => {
   return jsonData[0].projects;
 };
 const projectsData = getProjects();
-console.log(getProjects().InhouseProject);
 const MyPDF = () => (
   <Document>
     <Page size="A4" style={styles.page} className="page">
