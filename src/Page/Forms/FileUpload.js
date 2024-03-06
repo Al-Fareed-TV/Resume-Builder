@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import './FileUpload.css'
 const FileUpload = ({ setIsUploaded }) => {
   const [file, setFile] = useState(null);
 
@@ -42,8 +42,8 @@ const FileUpload = ({ setIsUploaded }) => {
 
 
   return (
-    <div>
-      <h2>File Upload</h2>
+    <div className='upload-file-container' >
+      <h2>Upload JSON file</h2>
       <input type="file" onChange={handleFileChange} />
       <button onClick={handleFileUpload}>Upload File</button>
     </div>

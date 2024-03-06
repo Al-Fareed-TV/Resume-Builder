@@ -24,10 +24,14 @@ const App = () => {
       {!loading && <FormPage />}
     */}
       {!loading && !isUploaded && <FileUpload setIsUploaded={setIsUploaded} />}
-      {!loading && isUploaded &&  <MyPDF />}
-      {!loading && isUploaded && <DownloadPDF />}
+      {!loading && isUploaded && (
+        <React.Fragment>
+          <MyPDF isUploaded={isUploaded} />
+          <DownloadPDF />
+        </React.Fragment>
+      )}
     </div>
   );
-};
+}
 
 export default App;
