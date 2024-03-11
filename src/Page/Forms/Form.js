@@ -1,100 +1,117 @@
 //Forms.js
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Form.css";
+import { useDispatch } from "react-redux";
+import { addUserProfileFormData,addUserCustomFormData } from "../../app/profileSlice";
 
 const ProfileForm = ({ handleProfileInputChange }) => {
-  const [name, setName] = useState("");
-  const [org, setOrg] = useState("");
-  const [date, setDate] = useState("");
-  const [desc, setDesc] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    experience: "",
+    designation: "",
+    desc: "",
+  });
+  const dispatch = useDispatch();
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-    handleProfileInputChange("title", e.target.value);
-  };
-  const handleOrgChange = (e) => {
-    setOrg(e.target.value);
-    handleProfileInputChange("org", e.target.value);
-  };
-  const handleDateChange = (e) => {
-    setDate(e.target.value);
-    handleProfileInputChange("date", e.target.value);
-  };
-  const handleDescChange = (e) => {
-    setDesc(e.target.value);
-    handleProfileInputChange("desc", e.target.value);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    handleProfileInputChange(name, value);
+    dispatch(addUserProfileFormData({ key: name, value }));
   };
 
   return (
     <div className="container">
       <h2> Profile</h2>
       <input
-        value={name}
+        value={formData.name}
+        name="name"
         placeholder="Name"
-        onChange={handleNameChange}
+        onChange={handleChange}
       />
       <div className="inner-container">
         <input
-          value={org}
-          placeholder="Organization"
-          onChange={handleOrgChange}
+          value={formData.experience}
+          name="experience"
+          placeholder="Experience"
+          onChange={handleChange}
         />
         <input
-          value={date}
-          placeholder="Jun - 2022"
-          onChange={handleDateChange}
+          value={formData.designation}
+          name="designation"
+          placeholder="Designation"
+          onChange={handleChange}
         />
       </div>
       <input
-        value={desc}
+        value={formData.desc}
+        name="desc"
         placeholder="Description"
-        onChange={handleDescChange}
+        onChange={handleChange}
       />
     </div>
   );
 };
 
-
-const CustomForm = ({ handleCustomFormInputChange,index }) => {
-  const [lists, setLists] = useState([]);
+const CustomForm = ({ handleCustomFormInputChange, index }) => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  
-  const handleTitleChange = () => {
+  const [lists, setLists] = useState([]);
+  const [formData, setFormData] = useState({
+    title: "",
+    desc: "",
+    lists: [],
+  });
+  const dispatch = useDispatch();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    dispatch(addUserCustomFormData({ key: name, value, index }));
+  };
 
-  }
-const handleListChanges = () => {
-    
-  }
-const handleDescChange = () => {
-    
-  }
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+    handleChange(e);
+  };
 
+  const handleDescChange = (e) => {
+    setDesc(e.target.value);
+    handleChange(e);
+  };
+
+  const handleListChanges = (e) => {
+    const listItems = e.target.value.split("\n");
+    setLists(listItems);
+    handleChange(e);
+  };
 
   return (
     <div className="container">
-      <h2> Custom Form</h2>
+      <h2>Custom Form</h2>
       <input
         value={title}
+        name="title"
         placeholder="Title"
         onChange={handleTitleChange}
       />
       <input
         value={desc}
+        name="desc"
         placeholder="Description"
         onChange={handleDescChange}
       />
-      
-      <textarea autosize='true'
-        value={lists.join('\n')}
-        placeholder="Custom List"
+
+      <textarea
+        value={lists.join("\n")}
+        name="list"
+        placeholder=""
         onChange={handleListChanges}
       />
       {lists.length > 0 && (
         <div className="bullet-list">
           <ul>
-            {lists.map((skill, index) => (
-              <li key={index}>{skill}</li>
+            {lists.map((item, index) => (
+              <li key={index}>{item}</li>
             ))}
           </ul>
         </div>

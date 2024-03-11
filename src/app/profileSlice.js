@@ -1,25 +1,31 @@
-import { createSlice,nanoid } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  userProfile: [],
-};
-
-const addProfileData = (state, action) => {
-  const userProfile = {
-    id: nanoid(),
-    text: action.payload,
-  };
-  state.userProfile.push(userProfile);
+  profile: { name: "", experience: "", designation: "", desc: "" },
+  customForm: [{ title: "", desc: "", list: [] }],
 };
 
 export const profileSlice = createSlice({
   name: "profile",
   initialState,
   reducers: {
-    addData: addProfileData,
+    addUserProfileFormData: (state, action) => {
+      const { key, value } = action.payload;
+      state.profile[key] = value;
+      localStorage.setItem("myProfile", JSON.stringify(state));
+    },
+    addUserCustomFormData: (state, action) => {
+      const { key, value,index } = action.payload;
+      if (index === state.customForm.length) {
+        state.customForm.push({ title: "", desc: "", list: [] });
+      }
+      state.customForm[index][key] = value; 
+      localStorage.setItem("myProfile", JSON.stringify(state));
+    },
   },
 });
 
-export const {addData} = profileSlice.actions;
+export const { addUserProfileFormData, addUserCustomFormData } =
+  profileSlice.actions;
 
 export default profileSlice.reducer;

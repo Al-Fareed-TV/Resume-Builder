@@ -1,6 +1,4 @@
-// FormPage.js
 import React, { useState, useEffect } from "react";
-// import { useDispatch } from "react-redux";
 import { ProfileForm, CustomForm } from "./Form";
 import "./FormPage.css";
 import {
@@ -8,17 +6,18 @@ import {
   handleListChange,
   handleRemoveCustomForm,
 } from "./FormActions/Actions";
-// import { addData } from "../../app/profileSlice";
 
 const FormPage = () => {
-  // const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     profile: { name: "", org: "", date: "", desc: "" },
     customForms: [{ title: "", desc: "", lists: [] }],
   });
 
+  
+  
   const handleProfileInputChange = (name, value) => {
+    
     setFormData((prevFormData) => ({
       ...prevFormData,
       profile: {
@@ -27,42 +26,44 @@ const FormPage = () => {
       },
     }));
   };
-
-  const handleCustomFormInputChange = (name, value, index) => {
+  
+  const handleCustomFormInputChange = (index, data) => {
     setFormData((prevFormData) => {
-      const customForms = [...prevFormData.customForms];
-      customForms[index] = {
-        ...customForms[index],
-        [name]: value,
-      };
-      return {
-        ...prevFormData,
-        customForms,
-      };
+      const updatedCustomForms = [...prevFormData.customForms];
+      updatedCustomForms[index] = data;
+      return { ...prevFormData, customForms: updatedCustomForms };
     });
+    console.log("Input ",formData);
   };
+
+
   
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const profileData = {
-      name: formData.profile.title,
-      org: formData.profile.org,
-      date: formData.profile.date,
-      desc: formData.profile.desc,
-    };
+    // const profileData = {
+    //   name: formData.profile.title,
+    //   org: formData.profile.org,
+    //   date: formData.profile.date,
+    //   desc: formData.profile.desc,
+    // };
 
-    const customFormsData = formData.customForms.map((form) => ({
-      title: form.title,
-      desc: form.desc,
-      lists: form.lists,
-    }));
+    // const customFormsData = formData.customForms.map((form) => ({
+    //   title: form.title,
+    //   desc: form.desc,
+    //   lists: form.lists,
+    // }));
 
-    const formDataJson = {
-      profile: profileData,
-      customForms: customFormsData,
-    };
-    console.log("Data Recieved = ", formDataJson);
+    // const formDataJson = {
+    //   profile: profileData,
+    //   customForms: customFormsData,
+    // };
+    // localStorage.setItem("userProfile", JSON.stringify(profileData));
+    // console.log(
+    //   "User profile saved ",
+    //   JSON.parse(localStorage.getItem("myProfile"))
+    // );
+    // console.log("Data Recieved = ", formDataJson);
     // dispatch(addData(formDataJson));
   };
 
@@ -80,7 +81,7 @@ const FormPage = () => {
           key={index}
           index={index}
           form={form}
-          handleCustomFormInputChange={(name, value) => handleCustomFormInputChange(name, value, index)}
+          handleCustomFormInputChange={() => handleCustomFormInputChange()}
           onListChange={(value) => handleListChange(index, value, setFormData)}
         />
       ))}
