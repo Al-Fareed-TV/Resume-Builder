@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
   },
   userName: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 800,
     fontFamily: "Times-Roman",
     color: "rgb(78, 175, 210)",
@@ -42,10 +42,10 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   url: {
-    fontSize: 10,
+    fontSize: 15,
   },
   subHeading: {
-    fontSize: 12,
+    fontSize: 14,
     color: "rgb(106, 180, 207)",
     marginTop: 10,
     marginBottom: 10,
@@ -81,18 +81,14 @@ const MyPDF = ({ isUploaded }) => {
   const [jsonData, setJsonData] = useState(null);
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("userProfile"));
+    const data = JSON.parse(localStorage.getItem("myProfile"));
     setJsonData(data);
   }, []);
 
-  if (!jsonData) return null; // Render nothing if jsonData is null
+  if (!jsonData) return null;
 
-  const profileData = jsonData[0].profile;
-  const empSkills = jsonData[0].skills;
-  const empToolsDetails = jsonData[0].tools;
-  const codeRef = jsonData[0].codeReference;
-  const empTrainingInfo = jsonData[0].training[0];
-  const projectsData = jsonData[0].projects;
+  const profileData = jsonData.profile;
+  const customData = jsonData.customForm;
 
   return (
     <Document>
@@ -109,7 +105,7 @@ const MyPDF = ({ isUploaded }) => {
           </View>
           <View className="profile-section" style={styles.profileSection}>
             <Text className="user-name" style={styles.userName}>
-              {profileData.Name}
+              {profileData.name}
             </Text>
             <Text className="url" style={styles.url}>
               {profileData.url}
@@ -117,76 +113,14 @@ const MyPDF = ({ isUploaded }) => {
             <Text className="sub-heading" style={styles.subHeading}>
               OVERVIEW
             </Text>
-            <Text fontSize="9px">{profileData.Overview}</Text>
+            <Text>
+              {profileData.designation} - {profileData.experience}
+            </Text>
             <ul style={{ listStyle: "none" }}>
-              {profileData.Keys.map((item) => {
+              {profileData.desc.split("\n").map((points) => {
                 return (
                   <li>
-                    <Text style={styles.lists}>
-                      {"\u2022 \t"}
-                      {item}
-                      <br />
-                    </Text>
-                  </li>
-                );
-              })}
-            </ul>
-          </View>
-          <View style={styles.skillsSection}>
-            <Text style={styles.subHeading}>SKILLS</Text>
-            <ul style={{ listStyle: "none" }}>
-              {empSkills.map((skill) => {
-                return (
-                  <li>
-                    <Text style={styles.lists}>
-                      {"\u2022 \t"}
-                      {skill}
-                      <br />
-                    </Text>
-                  </li>
-                );
-              })}
-            </ul>
-          </View>
-          <View className="tools-tech-section">
-            <Text style={styles.subHeading}>TOOLS AND TECHNOLOGY EXPOSURE</Text>
-            <ul style={{ listStyle: "none" }}>
-              {empToolsDetails.map((tool) => {
-                return (
-                  <li>
-                    <Text style={styles.lists}>
-                      {"\u2022 \t"}
-                      {tool}
-                    </Text>
-                  </li>
-                );
-              })}
-            </ul>
-          </View>
-          <View>
-            <Text style={styles.subHeading}>CODE REFERENCES</Text>
-            <ul style={{ listStyle: "none" }}>
-              {codeRef.map((item) => {
-                return (
-                  <li>
-                    <Text style={styles.lists}>
-                      {"\u2022 \t"}
-                      {item}
-                    </Text>
-                  </li>
-                );
-              })}
-            </ul>
-          </View>
-          <View>
-            <Text style={styles.subHeading}>TRAINING</Text>
-            <br />
-            <Text>Org : {empTrainingInfo.company}</Text>
-            <ul style={{ listStyle: "none" }}>
-              {empTrainingInfo.keypoints.map((points) => {
-                return (
-                  <li>
-                    <Text style={styles.lists}>
+                    <Text>
                       {"\u2022 \t"}
                       {points}
                     </Text>
@@ -195,32 +129,35 @@ const MyPDF = ({ isUploaded }) => {
               })}
             </ul>
           </View>
-          <View style={styles.projectSection}>
-            <Text style={styles.subHeading}>Projects:</Text>
-            {Object.entries(projectsData).map(([projectType, projects], index) => (
-              <View key={index}>
-                {" "}
-                <br />
-                <Text style={styles.type}>{projectType}:</Text>
-                <br />
-                {Object.entries(projects).map(([projectName, projectDetails], idx) => (
-                  <View key={idx}>
-                    <Text style={{ fontWeight: "bold" }}>
-                      {"\u2022 \t"}
-                      {projectName}:
-                    </Text>{" "}
-                    <br />
-                    {projectDetails.map((detail, idx) => (
-                      <Text key={idx}>
-                        - {detail}
-                        <br />
-                      </Text>
-                    ))}
-                  </View>
-                ))}
-              </View>
-            ))}
+
+          <View>
+            {customData.map((form, index) => {
+              const lists = form.list.split("\\n");
+              return (
+                <View key={index}>
+                  <Text style={styles.subHeading}>{form.title}</Text>
+                  <Text>
+                    {<br />}
+                    {form.desc}
+                  </Text>
+                  <ul style={{ listStyle: "none" }}>
+                    {lists.map((skill) => {
+                      return (
+                        <li>
+                          <Text style={styles.lists}>
+                            {"\u2022 \t"}
+                            {skill}
+                            <br />
+                          </Text>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </View>
+              );
+            })}
           </View>
+
           <View className="footer" style={styles.footer} fixed>
             <Text>CIN:U72200KA2014PTC075831</Text>
             <View style={styles.line}></View>

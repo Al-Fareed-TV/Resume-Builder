@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  profile: { name: "", experience: "", designation: "", desc: "" },
+  profile: { name: "", experience: "", designation: "", desc: "",url:"" },
   customForm: [{ title: "", desc: "", list: [] }],
 };
 

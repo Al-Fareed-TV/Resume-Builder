@@ -20,8 +20,6 @@ const FileUpload = ({ setIsUploaded }) => {
       alert('Please select a file before uploading.');
       return;
     }
-    localStorage.removeItem('userProfile');
-
     const reader = new FileReader();
 
     reader.onload = (event) => {
@@ -29,7 +27,7 @@ const FileUpload = ({ setIsUploaded }) => {
 
       try {
         const jsonData = JSON.parse(fileContent);
-        localStorage.setItem('userProfile', JSON.stringify(jsonData));
+        localStorage.setItem("myProfile", JSON.stringify(jsonData));
         setIsUploaded(true);
       } catch (error) {
         console.error('Error parsing JSON file:', error.message);
