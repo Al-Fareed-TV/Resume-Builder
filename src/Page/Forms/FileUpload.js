@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './FileUpload.css'
+import { Link } from 'react-router-dom/cjs/react-router-dom';
 const FileUpload = ({ setIsUploaded }) => {
   const [file, setFile] = useState(null);
 
@@ -29,6 +30,7 @@ const FileUpload = ({ setIsUploaded }) => {
         const jsonData = JSON.parse(fileContent);
         localStorage.setItem("myProfile", JSON.stringify(jsonData));
         setIsUploaded(true);
+        
       } catch (error) {
         console.error('Error parsing JSON file:', error.message);
         alert('Please upload valid JSON file');
@@ -40,10 +42,14 @@ const FileUpload = ({ setIsUploaded }) => {
 
 
   return (
-    <div className='upload-file-container' >
+    <div className="upload-file-container">
       <h2>Upload JSON file</h2>
       <input type="file" onChange={handleFileChange} />
-      <button onClick={handleFileUpload}>Upload File</button>
+      <Link to="/view" onClick={handleFileUpload}>Upload File</Link>
+      <div className='create-profile'>
+       <hr className="hr-text" data-content="or"/>
+      <Link to="/new">Create a profile</Link>
+      </div>
     </div>
   );
 };

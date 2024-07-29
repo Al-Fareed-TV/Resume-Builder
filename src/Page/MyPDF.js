@@ -80,9 +80,17 @@ const styles = StyleSheet.create({
 const MyPDF = ({ isUploaded }) => {
   const [jsonData, setJsonData] = useState(null);
 
-  useEffect(() => {
+  const getJSONData = () => {
     const data = JSON.parse(localStorage.getItem("myProfile"));
     setJsonData(data);
+  }
+
+  useEffect(() => {
+    getJSONData();
+
+    const interval = setInterval(getJSONData, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   if (!jsonData) return null;

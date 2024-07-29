@@ -16,14 +16,16 @@ const styles = StyleSheet.create({
 })
 const DownloadPDF = () => {
   return (
-    <div>
-    <PDFDownloadLink document={<MyPDF />} style={styles.a} fileName="resume.pdf">
-    {({ blob, url, loading, error }) =>
-      loading ? 'Loading document...' : 'Download PDF'
-    }
-  </PDFDownloadLink>
-    </div>
-  )
+    <PDFDownloadLink
+      document={<MyPDF />}
+      style={styles.a}
+      fileName="resume.pdf"
+    >
+      {({ blob, url, loading, error }) =>
+        loading ? "Loading document..." : "Download now!"
+      }
+    </PDFDownloadLink>
+  );
 }
 
 export default DownloadPDF
